@@ -26,7 +26,7 @@ export function ProfileSection() {
             </div>
             <div>
               <h2 className="text-lg font-medium mb-0.5">Ikhsan Zuhri</h2>
-              <p className="text-xs text-muted-foreground">Remote / Indonesia</p>
+              <p className="text-xs text-muted-foreground">Bandung, Indonesia</p>
             </div>
           </div>
 

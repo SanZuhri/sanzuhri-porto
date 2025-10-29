@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { SpotifyNowPlaying } from "@/components/SpotifyNowPlaying";
 import { FavoriteTracks } from "@/components/FavoriteTracks";
 import { FavoriteMedia } from "@/components/FavoriteMedia";
+import { FavoriteReads } from "@/components/FavoriteReads";
 
 interface Principle {
   text: string;
@@ -41,10 +42,10 @@ const BOOKMARKS: Bookmark[] = [
 ];
 
 const CURRENTLY = {
-  reading: "The Pragmatic Programmer",
+  reading: "Human Acts",
   building: "A SaaS for developers",
   learning: "Rust & Systems Programming",
-  location: "Remote / Indonesia"
+  location: "Bandung, Indonesia"
 };
 
 const Personal = () => {
@@ -78,7 +79,7 @@ const Personal = () => {
                 <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5" />
-                    Remote / Indonesia
+                    Bandung, Indonesia
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Mail className="w-3.5 h-3.5" />
@@ -225,26 +226,20 @@ const Personal = () => {
           {/* Recent Reads Section */}
           <section>
             <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-3 font-mono">
-              Recent Reads
+              Favorite Reads
             </h2>
-            <div className="space-y-3">
-              <div className="p-3 rounded-lg border border-border">
-                <p className="text-sm font-medium mb-1">The Pragmatic Programmer</p>
-                <p className="text-xs text-muted-foreground">David Thomas & Andrew Hunt</p>
-              </div>
-              <div className="p-3 rounded-lg border border-border">
-                <p className="text-sm font-medium mb-1">Atomic Habits</p>
-                <p className="text-xs text-muted-foreground">James Clear</p>
-              </div>
-              <a
-                href="https://www.goodreads.com/user/show/191787209-ikhsan-zuhri"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
-              >
-                View my reading list →
-              </a>
-            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Some of my recommended books.
+            </p>
+            <FavoriteReads />
+            <a
+              href="https://fable.co/ikhsan-zuhri-al-ghifary-396076066331?period_type=year"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 mt-4"
+            >
+              View my reading list →
+            </a>
           </section>
 
           <Separator />
