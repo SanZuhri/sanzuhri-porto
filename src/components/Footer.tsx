@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function Footer() {
@@ -22,7 +22,7 @@ export function Footer() {
           
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/SanZuhri"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -31,16 +31,16 @@ export function Footer() {
               <Github className="w-4 h-4" />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://www.instagram.com/san_zuhri?igsh=MTVjY2F0M2xzNnljaw=="
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Twitter"
+              aria-label="Instagram"
             >
-              <Twitter className="w-4 h-4" />
+              <Instagram className="w-4 h-4" />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/ikhsan-zuhri-al-ghifary-2ab078325/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
@@ -49,7 +49,7 @@ export function Footer() {
               <Linkedin className="w-4 h-4" />
             </a>
             <a
-              href="mailto:hello@example.com"
+              href="mailto:zuhrialghifaryikhsan@gmail.com"
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Email"
             >

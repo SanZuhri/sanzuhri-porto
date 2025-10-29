@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { MapPin, Mail, Calendar } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { SpotifyNowPlaying } from "@/components/SpotifyNowPlaying";
+import { FavoriteTracks } from "@/components/FavoriteTracks";
 
 interface Principle {
   text: string;
@@ -60,7 +62,7 @@ const Personal = () => {
               <div className="relative">
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces" 
+                    src="/images/profile2.jpg" 
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
@@ -68,7 +70,7 @@ const Personal = () => {
                 <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-background" />
               </div>
               <div className="flex-1 pt-1">
-                <h1 className="text-2xl font-medium mb-1">Alex Johnson</h1>
+                <h1 className="text-2xl font-medium mb-1">Ikhsan Zuhri</h1>
                 <p className="text-sm text-muted-foreground mb-3">
                   Full-Stack Developer & Designer
                 </p>
@@ -79,7 +81,7 @@ const Personal = () => {
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Mail className="w-3.5 h-3.5" />
-                    hello@alexjohnson.dev
+                    zuhrialghifaryikhsan@gmail.com
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
@@ -188,37 +190,24 @@ const Personal = () => {
 
           <Separator />
 
-          {/* Currently Listening Section */}
-          <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
-              Currently Listening
+          {/* Music Section */}
+          <section className="space-y-6">
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground font-mono">
+              Music
             </h2>
-            <p className="text-sm text-muted-foreground mb-4">
-              Music that's been on repeat lately.
-            </p>
-            <div className="space-y-3">
-              <a
-                href="https://open.spotify.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center justify-between p-3 rounded-lg border border-border hover:border-foreground/20 transition-colors"
-              >
-                <div>
-                  <p className="text-sm font-medium">Neon Dreams</p>
-                  <p className="text-xs text-muted-foreground">Electric Youth</p>
-                </div>
-                <svg className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                </svg>
-              </a>
-              <a
-                href="https://open.spotify.com/user/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
-              >
-                View my Spotify profile →
-              </a>
+            
+            <div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  What I'm currently listening to on Spotify.
+                </p>
+                <SpotifyNowPlaying />
+            </div>
+
+            <div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Some of my all-time favorite tracks.
+                </p>
+                <FavoriteTracks />
             </div>
           </section>
 
@@ -226,7 +215,7 @@ const Personal = () => {
 
           {/* Recent Reads Section */}
           <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-3 font-mono">
               Recent Reads
             </h2>
             <div className="space-y-3">
@@ -239,7 +228,7 @@ const Personal = () => {
                 <p className="text-xs text-muted-foreground">James Clear</p>
               </div>
               <a
-                href="https://www.goodreads.com"
+                href="https://www.goodreads.com/user/show/191787209-ikhsan-zuhri"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
@@ -273,7 +262,7 @@ const Personal = () => {
                 <p className="text-xs text-muted-foreground">David Fincher, 2010</p>
               </div>
               <a
-                href="https://letterboxd.com"
+                href="https://boxd.it/9vS1B"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"

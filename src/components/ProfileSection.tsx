@@ -17,15 +17,15 @@ export function ProfileSection() {
             <div className="relative">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces" 
-                  alt="Alex Johnson"
+                  src="/images/profile2.jpg" 
+                  alt="Ikhsan Zuhri"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background" />
             </div>
             <div>
-              <h2 className="text-lg font-medium mb-0.5">Alex Johnson</h2>
+              <h2 className="text-lg font-medium mb-0.5">Ikhsan Zuhri</h2>
               <p className="text-xs text-muted-foreground">Remote / Indonesia</p>
             </div>
           </div>
@@ -36,8 +36,8 @@ export function ProfileSection() {
             </h1>
             
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
-              I craft beautiful, functional digital experiences with modern web technologies. 
-              Specialized in React, TypeScript, and building scalable applications.
+              I am a Full-Stack Developer focused on modern web application development.
+              Experienced in React, TypeScript, and building scalable applications.
             </p>
           </div>
           
