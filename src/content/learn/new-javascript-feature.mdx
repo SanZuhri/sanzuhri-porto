@@ -1,0 +1,54 @@
+---
+slug: new-javascript-feature
+title: Exploring the Latest JavaScript Features
+description: A deep dive into new features introduced in recent ECMAScript versions.
+date: 2025-10-28
+category: JavaScript
+tags:
+  - JavaScript
+  - ESNext
+  - Web Development
+resources:
+  - title: MDN Web Docs - JavaScript
+    url: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  - title: ECMAScript Proposals
+    url: https://github.com/tc39/proposals
+---
+
+# Exploring the Latest JavaScript Features
+
+JavaScript is constantly evolving. Let's look at some of the exciting new additions.
+
+## Optional Chaining (`?.`)
+
+Simplifies accessing properties of objects that might be null or undefined.
+
+```javascript
+const user = { name: "Alice", address: { street: "123 Main" } };
+const street = user?.address?.street; // "123 Main"
+const city = user?.address?.city;   // undefined
+```
+
+## Nullish Coalescing (`??`)
+
+Provides a default value only when the expression on the left is `null` or `undefined` (not for `0` or `''`).
+
+```javascript
+const foo = null ?? 'default string'; // "default string"
+const bar = 0 ?? 42;                // 0
+```
+
+## Top-Level `await`
+
+Allows using `await` keyword outside of async functions in modules.
+
+```javascript
+// module.js
+const response = await fetch('https://api.example.com/data');
+const data = await response.json();
+console.log(data);
+```
+
+## Conclusion
+
+These features make JavaScript more robust and enjoyable to write. Keep exploring!

@@ -34,6 +34,29 @@
 </head>
 
   <body>
+    <script>
+      // Polyfill Buffer for browser environment
+      window.Buffer = window.Buffer || (function() {
+        try {
+          return require('buffer').Buffer;
+        } catch (e) {
+          // Fallback if require is not defined (e.g., in pure ESM context)
+          // This is a very basic polyfill and might not cover all Buffer functionalities
+          return class Buffer extends Uint8Array {
+            static from(data, encoding) {
+              if (typeof data === 'string') {
+                return new TextEncoder().encode(data);
+              }
+              return new Uint8Array(data);
+            }
+            toString(encoding = 'utf8') {
+              return new TextDecoder(encoding).decode(this);
+            }
+          };
+        }
+      })();
+      window.process = window.process || { env: {} }; // Basic process polyfill
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

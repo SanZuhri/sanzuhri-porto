@@ -6,7 +6,7 @@ const navigation = [
   { name: "Home", href: "/", icon: Home },
   { name: "Post", href: "/post", icon: FileText },
   { name: "Learn", href: "/learn", icon: BookOpen },
-  { name: "Lab", href: "/lab", icon: FlaskConical },
+  // { name: "Lab", href: "/lab", icon: FlaskConical },
   { name: "Archive", href: "/archive", icon: Archive },
   { name: "Personal", href: "/personal", icon: User },
   { name: "Contact", href: "/contact", icon: Mail },

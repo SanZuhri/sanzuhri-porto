@@ -14,7 +14,7 @@ const commands = [
   { name: "Home", path: "/", icon: Home },
   { name: "Posts", path: "/post", icon: FileText },
   { name: "Learn", path: "/learn", icon: BookOpen },
-  { name: "Lab", path: "/lab", icon: FlaskConical },
+  // { name: "Lab", path: "/lab", icon: FlaskConical },
   { name: "Archive", path: "/archive", icon: Archive },
   { name: "Personal", path: "/personal", icon: User },
   { name: "Contact", path: "/contact", icon: Mail },

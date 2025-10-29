@@ -9,8 +9,8 @@ import Post from "./pages/Post";
 import PostDetail from "./pages/PostDetail";
 import Learn from "./pages/Learn";
 import LearnDetail from "./pages/LearnDetail";
-import Lab from "./pages/Lab";
-import LabDetail from "./pages/LabDetail";
+// import Lab from "./pages/Lab";
+// import LabDetail from "./pages/LabDetail";
 import Archive from "./pages/Archive";
 import Personal from "./pages/Personal";
 import Contact from "./pages/Contact";
@@ -31,8 +31,8 @@ const App = () => (
             <Route path="/post/:slug" element={<PostDetail />} />
             <Route path="/learn" element={<Learn />} />
             <Route path="/learn/:slug" element={<LearnDetail />} />
-            <Route path="/lab" element={<Lab />} />
-            <Route path="/lab/:slug" element={<LabDetail />} />
+            {/* <Route path="/lab" element={<Lab />} /> */}
+            {/* <Route path="/lab/:slug" element={<LabDetail />} /> */}
             <Route path="/archive" element={<Archive />} />
             <Route path="/personal" element={<Personal />} />
             <Route path="/contact" element={<Contact />} />
