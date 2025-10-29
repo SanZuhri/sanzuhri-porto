@@ -3,6 +3,7 @@ import { MapPin, Mail, Calendar } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { SpotifyNowPlaying } from "@/components/SpotifyNowPlaying";
 import { FavoriteTracks } from "@/components/FavoriteTracks";
+import { FavoriteMedia } from "@/components/FavoriteMedia";
 
 interface Principle {
   text: string;
@@ -208,6 +209,14 @@ const Personal = () => {
                   Some of my all-time favorite tracks.
                 </p>
                 <FavoriteTracks />
+                <a
+                  href="https://open.spotify.com/user/31tjr5kzhhp6fp5haelfqwjddcya?si=b79b1765fa75477b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 mt-2"
+                >
+                  My Spotify Profile →
+                </a>
             </div>
           </section>
 
@@ -240,36 +249,23 @@ const Personal = () => {
 
           <Separator />
 
-          {/* Favorite Films Section */}
+          {/* Favorite Films & Series Section */}
           <section>
             <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
-              Favorite Films
+              Favorite Films & Series
             </h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Movies that left an impression on me.
+              Movies and shows that left an impression on me.
             </p>
-            <div className="space-y-3">
-              <div className="p-3 rounded-lg border border-border">
-                <p className="text-sm font-medium mb-1">Blade Runner 2049</p>
-                <p className="text-xs text-muted-foreground">Denis Villeneuve, 2017</p>
-              </div>
-              <div className="p-3 rounded-lg border border-border">
-                <p className="text-sm font-medium mb-1">Her</p>
-                <p className="text-xs text-muted-foreground">Spike Jonze, 2013</p>
-              </div>
-              <div className="p-3 rounded-lg border border-border">
-                <p className="text-sm font-medium mb-1">The Social Network</p>
-                <p className="text-xs text-muted-foreground">David Fincher, 2010</p>
-              </div>
-              <a
+            <FavoriteMedia />
+            <a
                 href="https://boxd.it/9vS1B"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+                className="text-xs text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 mt-4"
               >
                 View my Letterboxd →
               </a>
-            </div>
           </section>
 
           <Separator />
