@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, FileText, BookOpen, FlaskConical, Archive, Mail } from "lucide-react";
+import { Home, FileText, BookOpen, FlaskConical, Archive, User, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
@@ -8,6 +8,7 @@ const navigation = [
   { name: "Learn", href: "/learn", icon: BookOpen },
   { name: "Lab", href: "/lab", icon: FlaskConical },
   { name: "Archive", href: "/archive", icon: Archive },
+  { name: "Personal", href: "/personal", icon: User },
   { name: "Contact", href: "/contact", icon: Mail },
 ];
 

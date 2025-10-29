@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Home, FileText, BookOpen, FlaskConical, Archive, Mail } from "lucide-react";
+import { Home, FileText, BookOpen, FlaskConical, Archive, User, Mail } from "lucide-react";
 
 const commands = [
   { name: "Home", path: "/", icon: Home },
@@ -16,6 +16,7 @@ const commands = [
   { name: "Learn", path: "/learn", icon: BookOpen },
   { name: "Lab", path: "/lab", icon: FlaskConical },
   { name: "Archive", path: "/archive", icon: Archive },
+  { name: "Personal", path: "/personal", icon: User },
   { name: "Contact", path: "/contact", icon: Mail },
 ];
 
