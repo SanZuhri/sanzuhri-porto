@@ -9,8 +9,8 @@ const Index = () => {
     <div className="min-h-screen">
       <ProfileSection />
       
-      <div className="container mx-auto px-4 mb-20">
-        <div className="grid gap-6 md:grid-cols-2 mb-20">
+      <div className="container mx-auto px-4 max-w-2xl mb-32">
+        <div className="space-y-16">
           <ActivityWidget />
           <RepoWidget />
         </div>
