@@ -10,7 +10,7 @@ export function Layout() {
       <ThemeToggle />
       <CommandMenu />
       
-      <main className="flex-1 pb-24">
+      <main className="flex-1 pb-20 sm:pb-24">
         <Outlet />
       </main>
       
