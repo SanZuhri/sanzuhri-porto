@@ -12,6 +12,24 @@ export function ProfileSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="space-y-8"
         >
+          {/* Profile Header */}
+          <div className="flex items-center gap-4 mb-8">
+            <div className="relative">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces" 
+                  alt="Alex Johnson"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background" />
+            </div>
+            <div>
+              <h2 className="text-lg font-medium mb-0.5">Alex Johnson</h2>
+              <p className="text-xs text-muted-foreground">Remote / Indonesia</p>
+            </div>
+          </div>
+
           <div>
             <h1 className="text-3xl md:text-4xl font-medium mb-4 text-foreground tracking-tight">
               Full-Stack Developer & Designer
