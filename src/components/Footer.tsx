@@ -10,7 +10,7 @@ export function Footer() {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs text-muted-foreground mb-4">
-              © {currentYear} Portfolio. All rights reserved.
+              © {currentYear} Sanzuhri. All rights reserved.
             </p>
             <Link 
               to="/personal" 

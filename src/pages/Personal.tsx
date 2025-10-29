@@ -105,7 +105,7 @@ const Personal = () => {
 
           {/* Currently Section */}
           <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-4 font-mono">
               Currently
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -132,7 +132,7 @@ const Personal = () => {
 
           {/* Principles Section */}
           <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-4 font-mono">
               Principles
             </h2>
             <div className="space-y-6">
@@ -151,10 +151,10 @@ const Personal = () => {
 
           {/* Bookmarks Section */}
           <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-4 font-mono">
               Bookmarks
             </h2>
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-sm text-muted-foreground mb-4">
               Tools and resources I use daily and recommend to others.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -225,7 +225,7 @@ const Personal = () => {
 
           {/* Recent Reads Section */}
           <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-3 font-mono">
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-4 font-mono">
               Favorite Reads
             </h2>
             <p className="text-sm text-muted-foreground mb-4">
@@ -246,7 +246,7 @@ const Personal = () => {
 
           {/* Favorite Films & Series Section */}
           <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-4 font-mono">
               Favorite Films & Series
             </h2>
             <p className="text-sm text-muted-foreground mb-4">

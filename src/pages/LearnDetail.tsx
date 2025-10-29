@@ -62,7 +62,12 @@ const LearnDetail = () => {
               <div className="min-w-0 max-w-3xl">
                 <div className="mb-8">
                   <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                    <Badge variant="outline">{resource.category}</Badge>
+                    <Badge 
+                      variant="outline" 
+                      className="text-xs font-mono font-normal px-2 py-0.5 border-border/50 bg-muted/20 text-foreground/80 hover:bg-muted/40 transition-colors"
+                    >
+                      {resource.category}
+                    </Badge>
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       {format(new Date(resource.date), "MMMM d, yyyy")}
@@ -74,7 +79,11 @@ const LearnDetail = () => {
 
                   <div className="flex flex-wrap gap-2">
                     {resource.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary">
+                      <Badge 
+                        key={tag} 
+                        variant="outline" 
+                        className="text-xs font-mono font-normal px-2 py-0.5 border-border/50 bg-muted/20 text-foreground/80 hover:bg-muted/40 transition-colors"
+                      >
                         {tag}
                       </Badge>
                     ))}

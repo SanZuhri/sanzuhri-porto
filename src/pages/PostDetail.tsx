@@ -76,7 +76,11 @@ const PostDetail = () => {
 
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary">
+                      <Badge 
+                        key={tag} 
+                        variant="outline" 
+                        className="text-xs font-mono font-normal px-2 py-0.5 border-border/50 bg-muted/20 text-foreground/80 hover:bg-muted/40 transition-colors"
+                      >
                         {tag}
                       </Badge>
                     ))}

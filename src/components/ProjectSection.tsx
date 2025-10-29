@@ -1,9 +1,24 @@
-import { PROJECTS_DATA } from "@/lib/data";
-import { Github } from "lucide-react";
 import { Link } from "react-router-dom";
+import { getProjects, type Project } from "@/lib/projects"; // Import Project type
+import { useEffect, useState } from "react";
 
 export function ProjectSection() {
-  const featuredProjects = PROJECTS_DATA.filter(p => p.featured);
+  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const allProjects = await getProjects();
+        // Filter featured projects and take only the first 3
+        const featured = allProjects.filter(p => p.featured);
+        setFeaturedProjects(featured);
+      } catch (error) {
+        console.error("Failed to load projects:", error);
+      }
+    };
+    
+    loadProjects();
+  }, []);
 
   return (
     <section className="py-16 border-t border-border">
@@ -15,17 +30,16 @@ export function ProjectSection() {
         <div className="space-y-2">
           {featuredProjects.map((project) => (
             <a
-              key={project.id}
-              href={project.link}
+              key={project.slug}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="block p-4 border border-border rounded-lg hover:border-foreground/20 transition-all hover:translate-x-0.5 group"
             >
               <div className="flex items-start justify-between gap-4 mb-2">
                 <h3 className="text-sm font-medium group-hover:text-foreground/80 transition-colors">
                   {project.title}
                 </h3>
-                {project.github && (
-                  <Github className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
-                )}
               </div>
               <p className="text-xs text-muted-foreground mb-3 line-clamp-1">
                 {project.description}

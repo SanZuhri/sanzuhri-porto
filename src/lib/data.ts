@@ -1,14 +1,3 @@
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image?: string;
-  tags: string[];
-  link?: string;
-  github?: string;
-  featured?: boolean;
-}
-
 export interface Client {
   id: string;
   name: string;
@@ -76,39 +65,6 @@ export const TOOLS_DATA: Tool[] = [
   { id: 'git', name: 'Git', category: 'Tools' },
   { id: 'vscode', name: 'VS Code', category: 'Tools' },
   { id: 'figma', name: 'Figma', category: 'Tools' },
-];
-
-export const PROJECTS_DATA: Project[] = [
-  {
-    id: "1",
-    title: "AI Task Manager",
-    description: "An intelligent task management app with AI-powered prioritization and scheduling",
-    tags: ["React", "TypeScript", "AI", "Supabase"],
-    featured: true,
-    link: "#",
-    github: "#",
-  },
-  {
-    id: "2",
-    title: "Real-time Collaboration Tool",
-    description: "A collaborative workspace with live editing and video conferencing",
-    tags: ["Next.js", "WebRTC", "Socket.io"],
-    featured: true,
-    link: "#",
-  },
-  {
-    id: "3",
-    title: "E-commerce Dashboard",
-    description: "Analytics dashboard for e-commerce with real-time sales tracking",
-    tags: ["React", "D3.js", "Node.js"],
-    link: "#",
-  },
-  {
-    id: "4",
-    title: "Social Media Analytics",
-    description: "Track and analyze social media metrics across multiple platforms",
-    tags: ["Vue.js", "Python", "FastAPI"],
-  },
 ];
 
 export const CLIENTS_DATA: Client[] = [
@@ -189,3 +145,4 @@ export const BUCKET_LIST_DATA: BucketItem[] = [
     category: "Learning",
   },
 ];
+

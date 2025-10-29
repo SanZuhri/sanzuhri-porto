@@ -2,43 +2,52 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { getPosts } from "@/lib/posts";
 import { getLearnResources } from "@/lib/learn";
-import { PROJECTS_DATA } from "@/lib/data";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getProjects } from "@/lib/projects"; // Import getProjects
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, FileText, BookOpen, FolderGit2, Loader2 } from "lucide-react";
+import { Calendar, FileText, BookOpen, FolderGit2 } from "lucide-react";
 import { format } from "date-fns";
 import { useState, useEffect } from "react";
 import type { Post } from "@/lib/posts";
 import type { LearnResource } from "@/lib/learn";
+import type { Project } from "@/lib/projects"; // Import Project type
+import { Skeleton } from "@/components/ui/skeleton";
+
+type Item = 
+  | (Post & { type: 'post' })
+  | (LearnResource & { type: 'learn' })
+  | (Project & { type: 'project' });
 
 const Archive = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [learnResources, setLearnResources] = useState<LearnResource[]>([]);
-  const [loading, setLoading] = useState({
-    posts: true,
-    learn: true,
-    projects: true
-  });
+  const [items, setItems] = useState<Item[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch posts
-        const postsData = await getPosts();
-        setPosts(postsData);
-        setLoading(prev => ({ ...prev, posts: false }));
+        setIsLoading(true);
+        const [posts, learnResources, projects] = await Promise.all([
+          getPosts(),
+          getLearnResources(),
+          getProjects() // Fetch projects
+        ]);
+        
+        const allItems: Item[] = [
+          ...posts.map(p => ({ ...p, type: 'post' as const })),
+          ...learnResources.map(l => ({ ...l, type: 'learn' as const })),
+          ...projects.map(p => ({ ...p, type: 'project' as const })) // Map projects
+        ].sort((a, b) => {
+          const dateA = a.date;
+          const dateB = b.date;
+          return new Date(dateB).getTime() - new Date(dateA).getTime();
+        });
 
-        // Fetch learn resources
-        const learnData = await getLearnResources();
-        setLearnResources(learnData);
-        setLoading(prev => ({ ...prev, learn: false }));
-
-        // Projects are static, no need to fetch
-        setLoading(prev => ({ ...prev, projects: false }));
+        setItems(allItems);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setLoading({ posts: false, learn: false, projects: false });
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -46,182 +55,110 @@ const Archive = () => {
   }, []);
 
   const LoadingSpinner = () => (
-    <div className="flex justify-center items-center py-12">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    <div className="space-y-4">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Skeleton key={i} className="h-24 w-full rounded-md" />
+      ))}
     </div>
   );
-  return (
-    <div className="min-h-screen py-20">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Archive</h1>
-          <p className="text-xl text-muted-foreground">
-            Complete collection of posts, resources, and projects
-          </p>
-        </motion.div>
 
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="mb-8">
-            <TabsTrigger value="all">All</TabsTrigger>
-            <TabsTrigger value="posts">Posts</TabsTrigger>
-            <TabsTrigger value="learn">Learn</TabsTrigger>
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all" className="space-y-4">
-            {loading.posts || loading.learn ? (
-              <LoadingSpinner />
-            ) : [...posts.map(p => ({ ...p, type: 'post' as const })), 
-                ...learnResources.map(l => ({ ...l, type: 'learn' as const }))
-              ].sort((a, b) => 
-                new Date(b.date).getTime() - new Date(a.date).getTime()
-              ).map((item, index) => (
-              <motion.div
-                key={`all-${index}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
+  const renderItem = (item: Item, index: number) => (
+    <motion.div
+      key={`${item.type}-${index}`}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, delay: index * 0.03 }}
+    >
+      <Link 
+        to={item.type === 'project' ? item.url : `/${item.type}/${item.slug}`}
+        target={item.type === 'project' && item.url.startsWith('http') ? '_blank' : '_self'}
+        className="block"
+      >
+        <Card className="hover:bg-muted/50 transition-colors">
+          <CardHeader className="p-4">
+            <div className="flex items-center gap-3 text-sm text-muted-foreground mb-1">
+              <Badge 
+                variant="outline" 
+                className="text-xs font-mono font-normal px-2 py-0.5 border-border/50 bg-muted/20 text-foreground/80 hover:bg-muted/40 transition-colors"
               >
-                <Link to={item.type === 'post' ? `/post/${item.slug}` : `/learn/${item.slug}`}>
-                  <Card className="hover:shadow-md transition-all hover:border-primary/50">
-                    <CardHeader>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-                        <Badge variant="outline">
-                          {'category' in item ? item.category : 'Blog'}
-                        </Badge>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                          {format(new Date(item.date), "MMM d, yyyy")}
-                        </div>
-                      </div>
-                      <CardTitle className="hover:text-primary transition-colors">
-                        {item.title}
-                      </CardTitle>
-                      <CardDescription>{item.description}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </TabsContent>
-
-          <TabsContent value="posts" className="space-y-4">
-            {loading.posts ? (
-              <LoadingSpinner />
-            ) : posts.length === 0 ? (
-              <p className="text-muted-foreground text-center py-8">No posts found.</p>
-            ) : (
-              posts.map((post, index) => (
-                <motion.div
-                  key={post.slug}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                >
-                  <Link to={`/post/${post.slug}`}>
-                    <Card className="hover:shadow-md transition-all hover:border-primary/50">
-                      <CardHeader>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-                          <FileText className="w-4 h-4" />
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {format(new Date(post.date), "MMM d, yyyy")}
-                          </div>
-                        </div>
-                        <CardTitle className="hover:text-primary transition-colors">
-                          {post.title}
-                        </CardTitle>
-                        <CardDescription>{post.description}</CardDescription>
-                      </CardHeader>
-                    </Card>
-                  </Link>
-                </motion.div>
-              ))
+                {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+              </Badge>
+              <span className="flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 mr-1" />
+                {format(new Date(item.date), 'MMM d, yyyy')}
+              </span>
+            </div>
+            <CardTitle className="text-lg hover:text-primary transition-colors flex items-start gap-2">
+              {item.type === 'post' ? (
+                <FileText className="w-4 h-4 flex-shrink-0 mt-1.5 text-muted-foreground" />
+              ) : item.type === 'learn' ? (
+                <BookOpen className="w-4 h-4 flex-shrink-0 mt-1.5 text-muted-foreground" />
+              ) : (
+                <FolderGit2 className="w-4 h-4 flex-shrink-0 mt-1.5 text-muted-foreground" />
+              )}
+              {item.title}
+            </CardTitle>
+            <p className="text-sm text-muted-foreground line-clamp-2 mt-1">
+              {item.description}
+            </p>
+            {item.tags && item.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-2">
+                {item.tags.slice(0, 3).map((tag) => (
+                  <Badge 
+                    key={tag} 
+                    variant="outline" 
+                    className="text-xs font-mono font-normal px-2 py-0.5 border-border/50 bg-muted/20 text-foreground/80 hover:bg-muted/40 transition-colors"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             )}
-          </TabsContent>
+          </CardHeader>
+        </Card>
+      </Link>
+    </motion.div>
+  );
 
-          <TabsContent value="learn" className="space-y-4">
-            {loading.learn ? (
-              <LoadingSpinner />
-            ) : learnResources.length === 0 ? (
-              <p className="text-muted-foreground text-center py-8">No learning resources found.</p>
-            ) : (
-              learnResources.map((resource, index) => (
-                <motion.div
-                  key={resource.slug}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                >
-                  <Link to={`/learn/${resource.slug}`}>
-                    <Card className="hover:shadow-md transition-all hover:border-primary/50">
-                      <CardHeader>
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-                          <BookOpen className="w-4 h-4" />
-                          <Badge variant="outline">{resource.category}</Badge>
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {format(new Date(resource.date), "MMM d, yyyy")}
-                          </div>
-                        </div>
-                        <CardTitle className="hover:text-primary transition-colors">
-                          {resource.title}
-                        </CardTitle>
-                        <CardDescription>{resource.description}</CardDescription>
-                      </CardHeader>
-                    </Card>
-                  </Link>
-                </motion.div>
-              ))
-            )}
-          </TabsContent>
+  const filteredItems = (type: 'all' | 'post' | 'learn' | 'project') => {
+    if (type === 'all') return items;
+    return items.filter(item => item.type === type);
+  };
 
-          <TabsContent value="projects" className="space-y-4">
-            {loading.projects ? (
-              <LoadingSpinner />
-            ) : PROJECTS_DATA.length === 0 ? (
-              <p className="text-muted-foreground text-center py-8">No projects found.</p>
-            ) : (
-              PROJECTS_DATA.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                >
-                  <Card className="hover:shadow-md transition-all">
-                    <CardHeader>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                        <FolderGit2 className="w-4 h-4" />
-                        {project.featured && <Badge>Featured</Badge>}
-                      </div>
-                      <CardTitle>{project.title}</CardTitle>
-                      <CardDescription>{project.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
-                          <Badge key={tag} variant="secondary">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))
-            )}
-          </TabsContent>
+  return (
+    <div className="container py-12">
+      <div className="mb-12">
+        <h1 className="text-3xl font-bold mb-2">Archive</h1>
+        <p className="text-muted-foreground">Complete collection of posts, resources, and projects</p>
+      </div>
 
+      <Tabs defaultValue="all" className="w-full">
+        <TabsList className="mb-6">
+          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger value="post">Posts</TabsTrigger>
+          <TabsTrigger value="learn">Learn</TabsTrigger>
+          <TabsTrigger value="project">Projects</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="all" className="space-y-4">
+          {isLoading ? <LoadingSpinner /> : filteredItems('all').map(renderItem)}
+        </TabsContent>
+
+        <TabsContent value="post" className="space-y-4">
+          {isLoading ? <LoadingSpinner /> : filteredItems('post').map(renderItem)}
+        </TabsContent>
+
+        <TabsContent value="learn" className="space-y-4">
+          {isLoading ? <LoadingSpinner /> : filteredItems('learn').map(renderItem)}
+        </TabsContent>
+
+        <TabsContent value="project" className="space-y-4">
+          {isLoading ? <LoadingSpinner /> : filteredItems('project').map(renderItem)}
+        </TabsContent>
       </Tabs>
     </div>
-  </div>
-);
+  );
 };
 
 export default Archive;
+
