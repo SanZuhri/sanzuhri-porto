@@ -36,9 +36,9 @@ export function ProfileSection() {
             </h1>
             
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl">
-              Computer Science undergraduate with a passion for full-stack development. 
-              I build modern web applications using React, TypeScript, and various backend technologies. 
-              Currently expanding my skills in software engineering and open-source contributions.
+              A Computer Science student passionate about crafting digital experiences. 
+              Enjoys reading, music, and films in free time. 
+              Believes great software should be both functional and meaningful.
             </p>
           </div>
           

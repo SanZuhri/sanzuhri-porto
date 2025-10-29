@@ -94,10 +94,10 @@ const Personal = () => {
             </div>
 
             <p className="text-sm text-muted-foreground leading-relaxed">
-              I'm passionate about creating beautiful, functional digital experiences. 
-              When I'm not coding, you'll find me exploring new technologies, reading design blogs, 
-              or contributing to open source. I believe in building products that matter and 
-              making the web a better place, one pixel at a time.
+              Hey! I'm a computer science student who loves making cool stuff with code and making it actually look nice. 
+              When I’m not fighting bugs or playing around with designs, I’m probably doodling, exploring art, listening to music, reading something random, or watching movies that stick in my head for days. 
+              I really enjoy mixing tech and creativity, from coding and design to drawing. 
+              Always down to talk about fun projects or swap music and movie recs!
             </p>
           </section>
 
