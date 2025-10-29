@@ -4,7 +4,10 @@ import { contactSchema, type ContactFormData } from "@/schema/contact";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import emailjs from "@emailjs/browser";
+import { useState } from "react";
 import {
   Form,
   FormControl,
@@ -15,6 +18,8 @@ import {
 } from "@/components/ui/form";
 
 export function ContactForm() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -25,15 +30,37 @@ export function ContactForm() {
     },
   });
 
-  function onSubmit(data: ContactFormData) {
-    // Simulation: log data and show success toast
-    console.log("Contact form data:", data);
-    
-    toast.success("Message sent successfully!", {
-      description: "This is a simulation. Check the console for form data.",
-    });
-    
-    form.reset();
+  async function onSubmit(data: ContactFormData) {
+    try {
+      setIsLoading(true);
+
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      // ✨ Cocokkan nama variabel dengan yang ada di template EmailJS kamu:
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: data.name,
+          from_email: data.email,
+          subject: data.subject,
+          message: data.message,
+          time: new Date().toLocaleString(),
+        },
+        publicKey
+      );
+
+
+      toast.success("Message sent successfully!");
+      form.reset();
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast.error("Failed to send message. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -99,8 +126,15 @@ export function ContactForm() {
           )}
         />
 
-        <Button type="submit" size="lg" className="w-full">
-          Send Message
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Sending...
+            </>
+          ) : (
+            "Send Message"
+          )}
         </Button>
       </form>
     </Form>
