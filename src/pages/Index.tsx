@@ -9,15 +9,15 @@ const Index = () => {
     <div className="min-h-screen">
       <ProfileSection />
       
-      <div className="container mx-auto px-4 max-w-2xl mb-32">
-        <div className="space-y-16">
-          <ActivityWidget />
-          <RepoWidget />
-        </div>
+      <div className="container mx-auto px-4 max-w-2xl mb-24 space-y-12">
+        <ActivityWidget />
+        <RepoWidget />
       </div>
       
-      <ProjectSection />
-      <ClientSection />
+      <div className="space-y-24">
+        <ProjectSection />
+        <ClientSection />
+      </div>
     </div>
   );
 };

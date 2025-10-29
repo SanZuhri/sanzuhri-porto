@@ -1,120 +1,200 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { MapPin, Mail, Calendar } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
-interface Track {
-  title: string;
-  artist: string;
-  image: string;
+interface Principle {
+  text: string;
+  author: string;
 }
 
-interface Movie {
+interface Bookmark {
   title: string;
-  image: string;
+  url: string;
+  category: string;
 }
 
-const TRACKS: Track[] = [
-  { title: "Blinding Lights", artist: "The Weeknd", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=80&h=80&fit=crop" },
-  { title: "As It Was", artist: "Harry Styles", image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=80&h=80&fit=crop" },
-  { title: "Heat Waves", artist: "Glass Animals", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=80&h=80&fit=crop" },
-  { title: "Stay", artist: "The Kid LAROI & Justin Bieber", image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=80&h=80&fit=crop" },
-  { title: "Shivers", artist: "Ed Sheeran", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=80&h=80&fit=crop" },
+const PRINCIPLES: Principle[] = [
+  {
+    text: "Your time is limited, so don't waste it living someone else's life.",
+    author: "Steve Jobs"
+  },
+  {
+    text: "The only way to do great work is to love what you do.",
+    author: "Steve Jobs"
+  },
+  {
+    text: "Simplicity is the ultimate sophistication.",
+    author: "Leonardo da Vinci"
+  }
 ];
 
-const MOVIES: Movie[] = [
-  { title: "Inception", image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=300&h=400&fit=crop" },
-  { title: "Interstellar", image: "https://images.unsplash.com/photo-1509773896068-7fd415d91e2e?w=300&h=400&fit=crop" },
-  { title: "The Dark Knight", image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=300&h=400&fit=crop" },
-  { title: "Pulp Fiction", image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=300&h=400&fit=crop" },
-  { title: "The Shawshank Redemption", image: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=300&h=400&fit=crop" },
-  { title: "Fight Club", image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=300&h=400&fit=crop" },
+const BOOKMARKS: Bookmark[] = [
+  { title: "Linear", url: "https://linear.app", category: "Tools" },
+  { title: "Raycast", url: "https://raycast.com", category: "Tools" },
+  { title: "Figma", url: "https://figma.com", category: "Design" },
+  { title: "Vercel", url: "https://vercel.com", category: "Development" },
+  { title: "Arc Browser", url: "https://arc.net", category: "Tools" },
+  { title: "Notion", url: "https://notion.so", category: "Productivity" },
 ];
+
+const CURRENTLY = {
+  reading: "The Pragmatic Programmer",
+  building: "A SaaS for developers",
+  learning: "Rust & Systems Programming",
+  location: "Remote / Indonesia"
+};
 
 const Personal = () => {
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto px-4 max-w-2xl py-32">
+      <div className="container mx-auto px-4 max-w-2xl py-20 md:py-32">
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="space-y-24"
+          transition={{ duration: 0.5 }}
+          className="space-y-16"
         >
-          {/* Why Are You Here */}
-          <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-4">
-              Why are you here?
-            </h2>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              If you're hoping to find some secret API keys, I'm sorry to disappoint you. 
-              This page is just a place where I can put some of my more personal things.
-            </p>
-          </section>
-
-          {/* Word for Word */}
-          <section>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xs uppercase tracking-wider text-muted-foreground">
-                Word for Word
-              </h2>
-              <ExternalLink className="w-3 h-3 text-muted-foreground" />
-            </div>
-            <blockquote className="text-sm text-muted-foreground leading-relaxed mb-2">
-              "Your time is limited, so don't waste it living someone else's life. Don't be 
-              trapped by dogma – which is living with the results of other people's thinking."
-            </blockquote>
-            <cite className="text-xs text-muted-foreground">— Steve Jobs</cite>
-          </section>
-
-          {/* Top Tracks */}
-          <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-4">
-              Top Tracks
-            </h2>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              I listen to a lot of music, and I like to keep track of the songs that I've 
-              been playing the most.
-            </p>
-            <div className="space-y-3">
-              {TRACKS.map((track, index) => (
-                <div key={index} className="flex items-center gap-3 group">
+          {/* Profile Section */}
+          <section className="space-y-8">
+            <div className="flex items-start gap-6">
+              <div className="relative">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center overflow-hidden">
                   <img 
-                    src={track.image} 
-                    alt={track.title}
-                    className="w-10 h-10 rounded object-cover"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces" 
+                    alt="Profile"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-foreground truncate">{track.title}</p>
-                    <p className="text-xs text-muted-foreground truncate">{track.artist}</p>
-                  </div>
+                </div>
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-background" />
+              </div>
+              <div className="flex-1 pt-1">
+                <h1 className="text-2xl font-medium mb-1">Alex Johnson</h1>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Full-Stack Developer & Designer
+                </p>
+                <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5" />
+                    Remote / Indonesia
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5" />
+                    hello@alexjohnson.dev
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5" />
+                    Available for work
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              I'm passionate about creating beautiful, functional digital experiences. 
+              When I'm not coding, you'll find me exploring new technologies, reading design blogs, 
+              or contributing to open source. I believe in building products that matter and 
+              making the web a better place, one pixel at a time.
+            </p>
+          </section>
+
+          <Separator />
+
+          {/* Currently Section */}
+          <section>
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
+              Currently
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <p className="text-xs text-muted-foreground">Reading</p>
+                <p className="text-sm">{CURRENTLY.reading}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs text-muted-foreground">Building</p>
+                <p className="text-sm">{CURRENTLY.building}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs text-muted-foreground">Learning</p>
+                <p className="text-sm">{CURRENTLY.learning}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs text-muted-foreground">Based in</p>
+                <p className="text-sm">{CURRENTLY.location}</p>
+              </div>
+            </div>
+          </section>
+
+          <Separator />
+
+          {/* Principles Section */}
+          <section>
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
+              Principles
+            </h2>
+            <div className="space-y-6">
+              {PRINCIPLES.map((principle, index) => (
+                <div key={index} className="space-y-2">
+                  <p className="text-sm leading-relaxed italic">
+                    "{principle.text}"
+                  </p>
+                  <p className="text-xs text-muted-foreground">— {principle.author}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Top Movies */}
+          <Separator />
+
+          {/* Bookmarks Section */}
           <section>
-            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-4">
-              Top Movies
+            <h2 className="text-xs uppercase tracking-wider text-muted-foreground mb-6 font-mono">
+              Bookmarks
             </h2>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              Movies have a way of transporting us to different worlds, making us laugh, cry, 
-              and everything in between. Here are some of the films that have left a lasting 
-              impression on me.
+            <p className="text-sm text-muted-foreground mb-6">
+              Tools and resources I use daily and recommend to others.
             </p>
-            <div className="grid grid-cols-2 gap-4">
-              {MOVIES.map((movie, index) => (
-                <div key={index} className="group">
-                  <div className="aspect-[2/3] rounded overflow-hidden mb-2">
-                    <img 
-                      src={movie.image} 
-                      alt={movie.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {BOOKMARKS.map((bookmark, index) => (
+                <a
+                  key={index}
+                  href={bookmark.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between p-3 rounded-lg border border-border hover:border-foreground/20 transition-colors"
+                >
+                  <div>
+                    <p className="text-sm font-medium group-hover:text-foreground transition-colors">
+                      {bookmark.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground">{bookmark.category}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground">{movie.title}</p>
-                </div>
+                  <svg
+                    className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-all group-hover:translate-x-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </a>
               ))}
             </div>
+          </section>
+
+          <Separator />
+
+          {/* Footer Note */}
+          <section>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              This page is a glimpse into who I am beyond the code. If you'd like to connect, 
+              collaborate, or just chat about technology and design, feel free to reach out via 
+              email or any of my social channels.
+            </p>
           </section>
         </motion.div>
       </div>

@@ -3,54 +3,59 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Star } from "lucide-react";
 
 export function RepoWidget() {
-  const { data: repos, isLoading } = useGitHubRepos();
-
-  if (isLoading) {
-    return (
-      <div className="space-y-4">
-        <h2 className="text-xl font-medium text-foreground">Featured Repositories</h2>
-        <div className="space-y-3">
-          {[...Array(3)].map((_, i) => (
-            <Skeleton key={i} className="h-16 w-full" />
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const { data, isLoading, error } = useGitHubRepos();
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-medium text-foreground">Featured Repositories</h2>
-      <div className="space-y-4">
-        {repos?.slice(0, 5).map((repo) => (
-          <a
-            key={repo.id}
-            href={repo.html_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block group"
-          >
-            <div className="space-y-2">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="text-sm font-medium text-foreground group-hover:text-muted-foreground transition-colors">
-                  {repo.name}
-                </h3>
-                {repo.stargazers_count > 0 && (
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Star className="w-3 h-3" />
-                    <span>{repo.stargazers_count}</span>
-                  </div>
-                )}
-              </div>
-              {repo.description && (
-                <p className="text-sm text-muted-foreground line-clamp-1">
-                  {repo.description}
-                </p>
-              )}
+    <div className="space-y-4">
+      <h2 className="text-xs uppercase tracking-wider text-muted-foreground font-mono">
+        Featured Repositories
+      </h2>
+      
+      {isLoading && (
+        <div className="space-y-2">
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="p-4 border border-border rounded-lg">
+              <Skeleton className="h-4 w-3/4 mb-2" />
+              <Skeleton className="h-3 w-full" />
             </div>
-          </a>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
+      {error && (
+        <p className="text-xs text-muted-foreground">Failed to load repositories</p>
+      )}
+
+      {data && (
+        <div className="space-y-2">
+          {data.slice(0, 3).map((repo) => (
+            <a
+              key={repo.id}
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block p-4 border border-border rounded-lg hover:border-foreground/20 transition-all hover:translate-x-0.5"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-medium mb-1 truncate">{repo.name}</h3>
+                  <p className="text-xs text-muted-foreground line-clamp-1">
+                    {repo.description || "No description"}
+                  </p>
+                </div>
+                <Star className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+              </div>
+              <div className="flex items-center gap-3 mt-2 text-[10px] text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <Star className="w-2.5 h-2.5" />
+                  {repo.stargazers_count}
+                </span>
+                {repo.language && <span className="font-mono">{repo.language}</span>}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
