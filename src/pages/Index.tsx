@@ -2,7 +2,7 @@ import { ProfileSection } from "@/components/ProfileSection";
 import { ActivityWidget } from "@/components/ActivityWidget";
 import { RepoWidget } from "@/components/RepoWidget";
 import { ProjectSection } from "@/components/ProjectSection";
-import { ClientSection } from "@/components/ClientSection";
+import { ToolsExpertise } from "@/components/ToolsExpertise";
 
 const Index = () => {
   return (
@@ -16,7 +16,7 @@ const Index = () => {
       
       <div className="space-y-24">
         <ProjectSection />
-        <ClientSection />
+        <ToolsExpertise />
       </div>
     </div>
   );

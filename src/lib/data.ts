@@ -34,6 +34,50 @@ export interface BucketItem {
   category: string;
 }
 
+export interface Tool {
+  id: string;
+  name: string;
+  category: string;
+}
+
+export const TOOLS_DATA: Tool[] = [
+  // Programming Languages
+  { id: 'js', name: 'JavaScript', category: 'Programming Languages' },
+  { id: 'ts', name: 'TypeScript', category: 'Programming Languages' },
+  { id: 'python', name: 'Python', category: 'Programming Languages' },
+  { id: 'java', name: 'Java', category: 'Programming Languages' },
+  { id: 'php', name: 'PHP', category: 'Programming Languages' },
+  
+  
+  // Frontend
+  { id: 'react', name: 'React', category: 'Frontend' },
+  { id: 'vue', name: 'Vue.js', category: 'Frontend' },
+  { id: 'nextjs', name: 'Next.js', category: 'Frontend' },
+  { id: 'tailwind', name: 'Tailwind CSS', category: 'Frontend' },
+  { id: 'bootstrap', name: 'Bootstrap', category: 'Frontend' },
+  
+  // Backend
+  { id: 'node', name: 'Node.js', category: 'Backend' },
+  { id: 'fastapi', name: 'FastAPI', category: 'Backend' },
+  { id: 'laravel', name: 'Laravel', category: 'Backend' },
+  { id: 'sqlalchemy', name: 'SQLAlchemy', category: 'Backend' },
+  
+  // Database
+  { id: 'postgres', name: 'PostgreSQL', category: 'Database' },
+  { id: 'mysql', name: 'MySQL', category: 'Database' },
+  { id: 'firebase', name: 'Firebase', category: 'Database' },
+  
+  // DevOps
+  { id: 'docker', name: 'Docker', category: 'DevOps' },
+  { id: 'aws', name: 'AWS', category: 'DevOps' },
+  { id: 'github-actions', name: 'GitHub Actions', category: 'DevOps' },
+  
+  // Tools
+  { id: 'git', name: 'Git', category: 'Tools' },
+  { id: 'vscode', name: 'VS Code', category: 'Tools' },
+  { id: 'figma', name: 'Figma', category: 'Tools' },
+];
+
 export const PROJECTS_DATA: Project[] = [
   {
     id: "1",
