@@ -28,6 +28,8 @@ export function RepoWidget() {
   }
 
   if (error || !data || data.length === 0) {
+    const isRateLimitError = error instanceof Error && error.message.includes('rate limit');
+    
     return (
       <div className="space-y-4">
         <h2 className="text-xs uppercase tracking-wider text-muted-foreground font-mono">
@@ -35,7 +37,17 @@ export function RepoWidget() {
         </h2>
         <div className="p-6 border rounded-lg text-center">
           <p className="text-sm text-muted-foreground">
-            {error ? 'Failed to load repositories' : 'No repositories found'}
+            {isRateLimitError ? (
+              <>
+                GitHub API rate limit exceeded.
+                <br />
+                <span className="text-xs">Data will refresh when limit resets.</span>
+              </>
+            ) : error ? (
+              'Failed to load repositories'
+            ) : (
+              'No repositories found'
+            )}
           </p>
         </div>
       </div>

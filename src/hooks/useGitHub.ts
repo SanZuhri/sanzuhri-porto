@@ -5,11 +5,18 @@ export function useGitHubActivity() {
   return useQuery({
     queryKey: ["github-activity"],
     queryFn: fetchGitHubActivity,
-    staleTime: 60 * 1000, // 1 minute
-    refetchInterval: 2 * 60 * 1000, // Refetch every 2 minutes
-    refetchOnWindowFocus: true, // Refetch when window regains focus
-    retry: 2, // Retry failed requests twice
-    retryDelay: 1000, // Wait 1 second between retries
+    staleTime: 5 * 60 * 1000, // 5 minutes - reduce API calls
+    gcTime: 10 * 60 * 1000, // Keep data in cache for 10 minutes
+    refetchInterval: false, // Disable automatic refetching
+    refetchOnWindowFocus: false, // Disable refetch on window focus to avoid rate limits
+    retry: (failureCount, error) => {
+      // Don't retry on rate limit errors
+      if (error instanceof Error && error.message.includes('rate limit')) {
+        return false;
+      }
+      return failureCount < 2;
+    },
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
   });
 }
 
@@ -17,6 +24,16 @@ export function useGitHubRepos() {
   return useQuery({
     queryKey: ["github-repos"],
     queryFn: fetchGitHubRepos,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 10 * 60 * 1000, // 10 minutes - repos change less frequently
+    gcTime: 15 * 60 * 1000, // Keep data in cache for 15 minutes
+    refetchOnWindowFocus: false, // Disable refetch on window focus to avoid rate limits
+    retry: (failureCount, error) => {
+      // Don't retry on rate limit errors
+      if (error instanceof Error && error.message.includes('rate limit')) {
+        return false;
+      }
+      return failureCount < 2;
+    },
+    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential backoff
   });
 }
